@@ -16,7 +16,7 @@ epochs=100
 lr=0.01
 snapshot_interval=3
 gpuid=0
-nthreads=4
+nthreads=2
 
 python -m src.vdcnn.main --dataset ${dataset} \
                          --model_folder ${model_folder} \
