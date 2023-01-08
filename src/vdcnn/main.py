@@ -178,7 +178,7 @@ def train(epoch,net,dataset,device,msg="val/test",optimize=False,optimizer=None,
     nclasses = len(list(net.parameters())[-1])
     cm = np.zeros((nclasses,nclasses), dtype=int)
 
-    with tqdm(total=len(dataset),desc="Epoch {} - {}".format(epoch, msg)) as pbar:
+    with tqdm(total=len(dataset),desc="E{}-{}".format(epoch, msg)) as pbar:
         for iteration, (tx, ty) in enumerate(dataset):
             
             data = (tx, ty)
@@ -347,8 +347,8 @@ if __name__ == "__main__":
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, opt.lr_halve_interval, gamma=opt.gamma, last_epoch=-1)
         
     for epoch in range(1, opt.epochs + 1):
-        train(epoch,net, tr_loader, device, msg="training", optimize=True, optimizer=optimizer, scheduler=scheduler, criterion=criterion)
-        train(epoch,net, te_loader, device, msg="testing ", criterion=criterion)
+        train(epoch,net, tr_loader, device, msg="trn", optimize=True, optimizer=optimizer, scheduler=scheduler, criterion=criterion)
+        train(epoch,net, te_loader, device, msg="tst ", criterion=criterion)
 
         if (epoch % opt.snapshot_interval == 0) and (epoch > 0):
             path = "{}/model_epoch_{}".format(opt.model_folder,epoch)
