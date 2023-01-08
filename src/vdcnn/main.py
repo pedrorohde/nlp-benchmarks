@@ -50,7 +50,7 @@ def get_args():
     parser.add_argument("--momentum", type=float, default=0.9, help="Number of iterations before halving learning rate")
     parser.add_argument("--snapshot_interval", type=int, default=1)
     parser.add_argument("--gamma", type=float, default=0.9)
-    parser.add_argument("--gpuid", type=int, default=0)
+    parser.add_argument("--gpu", default=False, help="use available gpus")
     parser.add_argument("--nthreads", type=int, default=4)
     args = parser.parse_args()
     return args
@@ -130,7 +130,7 @@ class TupleLoader(Dataset):
     def __getitem__(self, i):
         xtxt = list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), int)
         lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), int)[0]
-        return xtxt, lab
+        return torch.tensor(xtxt), lab
 
 
 def get_metrics(cm, list_metrics):
@@ -324,7 +324,7 @@ if __name__ == "__main__":
     te_loader = DataLoader(TupleLoader(te_path), batch_size=opt.batch_size, shuffle=False, num_workers=opt.nthreads, pin_memory=False)
 
     # select cpu or gpu
-    device = torch.device("cuda:{}".format(opt.gpuid) if opt.gpuid >= 0 else "cpu")
+    device = torch.device("cuda" if opt.gpu else "cpu")
     list_metrics = ['accuracy']
 
 

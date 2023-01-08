@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
 
     # select cpu or gpu
-    device = torch.device("cuda" if opt.gpuid else "cpu")
+    device = torch.device("cuda" if opt.gpu else "cpu")
     list_metrics = ['accuracy']
 
 
