@@ -128,8 +128,8 @@ class TupleLoader(Dataset):
         return list_from_bytes(self.txn.get('nsamples'.encode()))[0]
 
     def __getitem__(self, i):
-        xtxt = list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), np.int)
-        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), np.int)[0]
+        xtxt = list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), int)
+        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), int)[0]
         return xtxt, lab
 
 
@@ -243,7 +243,7 @@ def list_to_bytes(l):
     return np.array(l).tobytes()
 
 
-def list_from_bytes(string, dtype=np.int):
+def list_from_bytes(string, dtype=int):
     return np.frombuffer(string, dtype=dtype)
 
 

@@ -141,8 +141,8 @@ class TupleLoader(Dataset):
         i: int
         xtxt: np.array([maxlen])
         """
-        xtxt = list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), np.int)
-        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), np.int)[0]
+        xtxt = list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), int)
+        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), int)[0]
         xtxt = xtxt[:opt.maxlen]
         return xtxt, lab
 

@@ -62,12 +62,12 @@ class TupleLoader(Dataset):
     def __len__(self):
         return self.list_from_bytes(self.txn.get('nsamples'.encode()))[0]
 
-    def list_from_bytes(self, string, dtype=np.int):
+    def list_from_bytes(self, string, dtype=int):
         return np.frombuffer(string, dtype=dtype)
   
     def __getitem__(self, i):
-        xtxt = self.list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), np.int)
-        lab = self.list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), np.int)[0]
+        xtxt = self.list_from_bytes(self.txn.get(('txt-%09d' % i).encode()), int)
+        lab = self.list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), int)[0]
 
         # padding array with 0 to maxlen if needed:
         if self.maxlen:

@@ -12,7 +12,7 @@ def list_to_bytes(l):
     return np.array(l).tobytes()
 
 
-def list_from_bytes(string, dtype=np.int):
+def list_from_bytes(string, dtype=int):
     return np.frombuffer(string, dtype=dtype)
 
 

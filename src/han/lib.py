@@ -105,8 +105,8 @@ class TupleLoader(Dataset):
     def __getitem__(self, i):
         nsentence = list_from_bytes(self.txn.get(('txtn-%09d' % i).encode()))[0]
 
-        xtxt = [list_from_bytes(self.txn.get(('txt-%09d-{}'.format(j) % i).encode()), dtype=np.int).tolist() for j in range(nsentence)]
-        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), np.int)[0]
+        xtxt = [list_from_bytes(self.txn.get(('txt-%09d-{}'.format(j) % i).encode()), dtype=int).tolist() for j in range(nsentence)]
+        lab = list_from_bytes(self.txn.get(('lab-%09d' % i).encode()), int)[0]
         return xtxt, lab
 
 
@@ -149,5 +149,5 @@ def list_to_bytes(l):
     return np.array(l).tobytes()
 
 
-def list_from_bytes(string, dtype=np.int):
+def list_from_bytes(string, dtype=int):
     return np.frombuffer(string, dtype=dtype)
