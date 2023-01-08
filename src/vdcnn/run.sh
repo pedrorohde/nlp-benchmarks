@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd ../../
  
-dataset="ag_news"
+dataset="twitter"
 
 data_folder="datasets/${dataset}/vdcnn"
 model_folder="models/vdcnn/${dataset}"

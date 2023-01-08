@@ -464,6 +464,32 @@ class Imdb(object):
         return self._generator(os.path.join(self.data_folder, "test.csv"))
 
 
+class Twitter(object):
+    def __init__(self):
+
+        self.data_name = "twitter"
+        self.data_folder = "{}/{}/raw".format(DATA_FOLDER, self.data_name)
+        self.n_classes = 2
+        
+
+    @staticmethod
+    def _generator(filename):
+
+        with open(filename, mode='r', encoding='utf-8') as f:
+            reader = csv.DictReader(f, quotechar='"')
+            for line in reader:
+                sentence = line['sentence']
+                label = int(line['label'])
+                # if sentence and label:
+                yield sentence, label
+
+    def load_train_data(self):
+        return self._generator(os.path.join(self.data_folder, "train.csv"))
+
+    def load_test_data(self):
+        return self._generator(os.path.join(self.data_folder, "test.csv"))
+
+
 def load_datasets(names=["ag_news", "imdb"]):
     """
     Select datasets based on their names
@@ -492,21 +518,15 @@ def load_datasets(names=["ag_news", "imdb"]):
         datasets.append(YahooAnswer())
     if 'imdb' in names:
         datasets.append(Imdb())
+    if 'twitter' in names:
+        datasets.append(Twitter())
     return datasets
 
 
 if __name__ == "__main__":
 
     names = [
-        'imdb',
-        'ag_news',
-        'db_pedia',
-        'yelp_review',
-        'yelp_polarity',
-        'amazon_review',
-        'amazon_polarity',
-        'sogou_news',
-        'yahoo_answer',
+        'twitter'
     ]
 
     for name in names:
