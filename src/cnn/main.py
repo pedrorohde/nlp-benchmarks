@@ -44,7 +44,7 @@ def get_args():
     parser.add_argument("--momentum", type=float, default=0.9, help="Number of iterations before halving learning rate")
     parser.add_argument("--snapshot_interval", type=int, default=1)
     parser.add_argument("--gamma", type=float, default=0.9)
-    parser.add_argument("--gpuid", type=int, default=-1, help="select gpu (-1 if cpu)")
+    parser.add_argument("--gpu", default=False, help="use available gpus")
     parser.add_argument("--nthreads", type=int, default=4)
     args = parser.parse_args()
     return args
@@ -246,7 +246,7 @@ if __name__ == "__main__":
 
 
     # select cpu or gpu
-    device = torch.device("cuda:{}".format(opt.gpuid) if opt.gpuid >= 0 else "cpu")
+    device = torch.device("cuda" if opt.gpuid else "cpu")
     list_metrics = ['accuracy']
 
 

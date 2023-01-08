@@ -15,7 +15,6 @@ batch_size=128
 epochs=100
 lr=0.01
 snapshot_interval=3
-gpuid=0
 nthreads=2
 
 python -m src.vdcnn.main --dataset ${dataset} \
@@ -31,6 +30,6 @@ python -m src.vdcnn.main --dataset ${dataset} \
                          --momentum ${momentum} \
                          --gamma ${gamma} \
                          --snapshot_interval ${snapshot_interval} \
-                         --gpuid ${gpuid} \
+                         --gpu \
                          --nthreads ${nthreads} \
                          --shortcut \
