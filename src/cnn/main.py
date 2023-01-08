@@ -73,7 +73,7 @@ class TupleLoader(Dataset):
         if self.maxlen:
             xtxt = np.pad(xtxt, (0, self.maxlen-len(xtxt)), 'constant')
 
-        return xtxt, lab
+        return torch.tensor(xtxt), lab
 
 
 def train(epoch,net,dataset,device,msg="val/test",optimize=False,optimizer=None,scheduler=None,criterion=None):
